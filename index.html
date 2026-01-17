@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dikkat!</title>
+    <title>Sürpriz</title>
     <style>
         body {
             margin: 0;
@@ -13,11 +13,9 @@
             align-items: center;
             justify-content: center;
             background-color: #000;
-            font-family: 'Arial Black', sans-serif;
+            font-family: sans-serif;
             overflow: hidden;
         }
-        
-        /* Kırmızı Yuvarlak Buton */
         .red-circle {
             width: 150px;
             height: 150px;
@@ -26,56 +24,42 @@
             border: 8px solid #800000;
             cursor: pointer;
             box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
-            transition: transform 0.1s;
             outline: none;
-            z-index: 10;
         }
-
-        .red-circle:active {
-            transform: scale(0.85);
-        }
-
-        /* Ekrana Gelecek Yazı */
         #msg {
-            display: none; /* Başlangıçta gizli */
+            display: none;
             color: white;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-align: center;
             margin-top: 20px;
-            text-shadow: 0 0 20px red;
-            z-index: 20;
-            padding: 20px;
+            font-weight: bold;
         }
-
         .flash { animation: f 0.05s infinite; }
-        @keyframes f { 0% { background: #ff0000; } 100% { background: #000; } }
+        @keyframes f { 0% { background: red; } 100% { background: black; } }
     </style>
 </head>
 <body id="bg">
 
     <button id="btn" class="red-circle" onclick="aksiyon()"></button>
-    
-    <div id="msg">KÜRT-OROSPU-ÇOCUĞUDUR!<br> 🖕Annelerini yeyim🖕</div>
+    <div id="msg">KÜRT-OROSPU ÇOCUKLSRI! 😂</div>
 
-    <audio id="ses" src="ses.mp3"></audio>
+    <audio id="sesElemani" src="Ses.mp3" preload="auto"></audio>
 
     <script>
         function aksiyon() {
-            const s = document.getElementById('ses');
+            const s = document.getElementById('sesElemani');
             const m = document.getElementById('msg');
             const b = document.getElementById('btn');
             const body = document.getElementById('bg');
 
-            // Butonu gizle, mesajı göster
             b.style.display = 'none';
             m.style.display = 'block';
 
-            // Ses ve efektler
-            s.volume = 1.0;
-            s.play();
-            body.classList.add('flash');
+            // Sesi oynatmayı dene
+            s.play().catch(e => console.log("Ses çalma hatası:", e));
+            s.volume = 1.0; 
 
-            // Titreşim
+            body.classList.add('flash');
             if (navigator.vibrate) navigator.vibrate([500, 200, 500]);
         }
     </script>
