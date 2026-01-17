@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dikkat!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            font-family: 'Arial Black', sans-serif;
+            overflow: hidden;
+        }
+        
+        /* Kırmızı Yuvarlak Buton */
+        .red-circle {
+            width: 150px;
+            height: 150px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            border: 8px solid #800000;
+            cursor: pointer;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            transition: transform 0.1s;
+            outline: none;
+            z-index: 10;
+        }
+
+        .red-circle:active {
+            transform: scale(0.85);
+        }
+
+        /* Ekrana Gelecek Yazı */
+        #msg {
+            display: none; /* Başlangıçta gizli */
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            margin-top: 20px;
+            text-shadow: 0 0 20px red;
+            z-index: 20;
+            padding: 20px;
+        }
+
+        .flash { animation: f 0.05s infinite; }
+        @keyframes f { 0% { background: #ff0000; } 100% { background: #000; } }
+    </style>
+</head>
+<body id="bg">
+
+    <button id="btn" class="red-circle" onclick="aksiyon()"></button>
+    
+    <div id="msg">KÜRT-OROSPU-ÇOCUĞUDUR!<br> 🖕Annelerini yeyim🖕</div>
+
+    <audio id="ses" src="ses.mp3"></audio>
+
+    <script>
+        function aksiyon() {
+            const s = document.getElementById('ses');
+            const m = document.getElementById('msg');
+            const b = document.getElementById('btn');
+            const body = document.getElementById('bg');
+
+            // Butonu gizle, mesajı göster
+            b.style.display = 'none';
+            m.style.display = 'block';
+
+            // Ses ve efektler
+            s.volume = 1.0;
+            s.play();
+            body.classList.add('flash');
+
+            // Titreşim
+            if (navigator.vibrate) navigator.vibrate([500, 200, 500]);
+        }
+    </script>
+</body>
+</html>
